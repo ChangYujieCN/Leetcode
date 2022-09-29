@@ -1,15 +1,16 @@
 class Solution:
+    # abacababd
     def get_next(self, word):
         k = -1
         j = 0
         next_arr = [0] * len(word)
         next_arr[0] = -1
-        while j < (len(word) - 1):
-            if k == -1 or word[j] == word[k]: # 第一个不属于公共前后缀的索引k的值和当前索引j一样
+        while j < (len(word) - 1):  # j 才是遍历器   k是描述j位置应该去哪个位置取
+            if k == -1 or word[j] == word[k]:  # 第一个不属于公共前后缀的索引k的值和当前索引j一样
                 k += 1  # 当前位置相等 因为是斜着对应  所以需要都+1 填入下一个值
-                j += 1
-                next_arr[j] = k 
-            else: # 当前位置j和第一个非公共前后缀k位置处的字符不同那么应该 退而求其次  找稍微短一些的公共前后缀
+                j += 1  # next_arr的含义是  如果在j的位置发生不匹配我应该拿哪个位置的数放到当前位置去作比较
+                next_arr[j] = k
+            else:  # 当前位置j和第一个非公共前后缀k位置处的字符不同那么应该 退而求其次  找稍微短一些的公共前后缀
                 k = next_arr[k]
         return next_arr
 
@@ -32,12 +33,13 @@ class Solution:
 
 
 so = Solution()
-print(so.strStr("abafsabcabacababda", "abacababd"))
-#1. ABCDABD
-#2. 0123456 索引值 j 
-#3. 0000120 公共前后缀长度
-#4. x0000120
-#5. -1000012 k的值 代表对应的当前索引j前面所有的字串的公共前后缀长度 同时还有另外一层含义 
+print(so.strStr("ABC ABCDAB ABCDABCDABDE", "ABCDABD"))
+# print(so.strStr("hellhillo", "llo"))
+# 1. ABCDABD
+# 2. 0123456 索引值 j
+# 3. 0000120 公共前后缀长度
+# 4. x0000120
+# 5. -1000012 k的值 代表对应的当前索引j前面所有的字串的公共前后缀长度 同时还有另外一层含义
 # 一旦当j处不匹配应当将k的值的对应索引移动到当前位置继续匹配
 # 所以k实际指向的就是 第一个不属于公共前缀的元素
 
@@ -45,20 +47,20 @@ print(so.strStr("abafsabcabacababda", "abacababd"))
 # 前面补上一位 然后最后一位舍去
 # 这样一来实际上有着一个斜着的对应关系
 # 用k来代替
-#index  012345678
+# index  012345678
 #       abacababd
-#next  -100101? 
+# next  -100101?
 # j = 5  k = 1  word[j] == word[k] 则 next[6] = 2
-#index  012345678
+# index  012345678
 #       abacababd
-#next  -1001012?
+# next  -1001012?
 # j = 6  k = 2  word[j] == word[k] 则 next[7] = 3
-#index  012345678
+# index  012345678
 #       abacababd
-#next  -10010123?
+# next  -10010123?
 # j = 6 k = 3  word[j] != word[k] 则进入新的逻辑
 # abacaba 相同前后缀长度为3 不一样尝试缩小公共前后缀范围
-# 因为 aba c aba 
+# 因为 aba c aba
 
 # 算法核心
 # abcdabcffds

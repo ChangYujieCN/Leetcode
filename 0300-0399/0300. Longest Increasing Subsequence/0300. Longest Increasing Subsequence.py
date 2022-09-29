@@ -44,7 +44,11 @@ class Solution:
         size = 0
         for x in nums:
             i, j = 0, size
-            while i != j:
+            # 为何要寻找左侧边界
+            # 因为右侧边界是size 永远比tails当前长度大1位
+            # 如果遇到[7,7,7,7,7]这种不断寻找右边界就会造成
+            # 最终的结果是5 而不是1
+            while i < j:
                 mid = (i + j) >> 1
                 if tails[mid] < x:
                     i = mid + 1
@@ -57,4 +61,3 @@ class Solution:
 
 so = Solution()
 so.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18])
-

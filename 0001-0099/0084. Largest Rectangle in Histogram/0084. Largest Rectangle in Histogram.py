@@ -49,5 +49,5 @@ class Solution2:
         return res
 
 
-so = Solution()
+so = Solution2()
 so.largestRectangleArea([2, 1, 5, 6, 2, 3])
