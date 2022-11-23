@@ -6,11 +6,13 @@ class Solution:
         next_arr = [0] * len(word)
         next_arr[0] = -1
         while j < (len(word) - 1):  # j 才是遍历器   k是描述j位置应该去哪个位置取
-            if k == -1 or word[j] == word[k]:  # 第一个不属于公共前后缀的索引k的值和当前索引j一样
-                k += 1  # 当前位置相等 因为是斜着对应  所以需要都+1 填入下一个值
+            # 为啥从 j = 1  k = 0 开始  因为第一个字母肯定相等  不用去作比较
+            if k == -1 or word[j] == word[k]:
+                k += 1
                 j += 1  # next_arr的含义是  如果在j的位置发生不匹配我应该拿哪个位置的数放到当前位置去作比较
                 next_arr[j] = k
-            else:  # 当前位置j和第一个非公共前后缀k位置处的字符不同那么应该 退而求其次  找稍微短一些的公共前后缀
+            else:
+                # 只要发生不匹配k就重置为-1  从头开始
                 k = next_arr[k]
         return next_arr
 
@@ -33,7 +35,7 @@ class Solution:
 
 
 so = Solution()
-print(so.strStr("ABC ABCDAB ABCDABCDABDE", "ABCDABD"))
+print(so.strStr("ABC ABCDAB ABCDABCDABDE", "ABCDABDFABCDABDE"))
 # print(so.strStr("hellhillo", "llo"))
 # 1. ABCDABD
 # 2. 0123456 索引值 j

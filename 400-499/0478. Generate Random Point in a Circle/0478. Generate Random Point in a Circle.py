@@ -1,9 +1,12 @@
 import math
 import random
+from typing import List
+
 
 # random.random()  [0,1)
 # random.uniform(a,b) a<=N<=b
 class Solution:
+
     def __init__(self, radius: float, x_center: float, y_center: float):
         self.radius, self.x, self.y = radius, x_center, y_center
 
@@ -30,4 +33,3 @@ class Solution:
 # A = pi * r^2
 # dA = pi * d(r^2)
 # 面积增加和半径平方成正比
-

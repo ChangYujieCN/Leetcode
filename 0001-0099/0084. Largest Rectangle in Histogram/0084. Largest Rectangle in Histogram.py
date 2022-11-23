@@ -42,7 +42,7 @@ class Solution2:
         for i in range(len(heights)):
             while heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
-                w = i - stack[-1] - 1 # 因为已经pop()过一次
+                w = i - stack[-1] - 1  # 因为已经pop()过一次
                 res = max(res, h * w)
             stack.append(i)
         heights.pop()

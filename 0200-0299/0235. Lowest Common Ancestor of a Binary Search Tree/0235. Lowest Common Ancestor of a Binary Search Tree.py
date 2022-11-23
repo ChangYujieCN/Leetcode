@@ -1,5 +1,6 @@
 # Definition for a binary tree node.
 class TreeNode:
+
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -7,15 +8,17 @@ class TreeNode:
 
 
 class Solution:
-    def lowestCommonAncestor(
-        self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
-    ) -> "TreeNode":
+
+    def lowestCommonAncestor(self, root: "TreeNode", p: "TreeNode", q: "TreeNode") -> "TreeNode":
         while root:
-            if root.val > p.val and root.val > q.val:
+            if root.val > p.val and root.val > q.val:  # 1
                 root = root.left
-            if root.val < p.val and root.val < q.val:
+            # 保证一次只走一次分支逻辑  否则可能走完第一个逻辑后就直接返回了
+            # 比如走完1之后然后需要进行下次逻辑了 但是假如走完1发现还需要再走一次1这时候
+            # 2如果写if而不是elif 就会走到条件语句2,如果期望的结果不对就会直接返回 而不是再去下个while循环里再执行一次循环
+            elif root.val < p.val and root.val < q.val:  #2
                 root = root.right
-            else:
+            else:  #3
                 return root
 
 
@@ -33,7 +36,4 @@ for index, item in enumerate(arr):
             forest[index].right = forest[right_index]
 so = Solution()
 
-so.lowestCommonAncestor(
-    forest[0], forest[0].left.right.right, forest[0].left.right.left
-)
-
+so.lowestCommonAncestor(forest[0], forest[0].left.right.right, forest[0].left.right.left)

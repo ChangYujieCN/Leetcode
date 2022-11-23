@@ -3,20 +3,20 @@ import collections
 
 
 class Solution:
+
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         people_dict = collections.defaultdict(list)
+        res = []
         for h, k in people:
             people_dict[h].append((h, k))
-        res = []
         for h in sorted(people_dict.keys(), reverse=True):
-            group = sorted(people_dict[h])
-            if not res:
-                res += group
-            else:
-                for h, k in group:
-                    res.insert(k, (h, k))
+            for a, b in sorted(people_dict[h]):
+                res.insert(b, (a, b))
         return res
 
+
+so = Solution()
+so.reconstructQueue([[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]])
 
 # input: [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
 # subarray after step 1: [[7,0], [7,1]]
