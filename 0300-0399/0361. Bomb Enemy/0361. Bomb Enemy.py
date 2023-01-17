@@ -2,6 +2,7 @@ from typing import List
 
 
 class Solution:
+
     def maxKilledEnemies(self, grid: List[List[str]]) -> int:
         if len(grid) == 0:
             return 0
@@ -43,5 +44,5 @@ class Solution:
             for j in range(n):
                 if grid[i][j] == "0":
                     ans = max(ans, boom[i][j])
-        return ans
 
+        return ans

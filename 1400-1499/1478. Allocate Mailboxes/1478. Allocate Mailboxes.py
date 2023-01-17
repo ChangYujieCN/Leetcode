@@ -24,23 +24,24 @@ class Solution:
         # 缓存函数的值 避免重复计算同一个值
         # @lru_cache(None)
         @cache
-        def dp(k, i, s):  # k个邮筒
+        def dp(k, i):  # k个邮筒
             if k == 0 and i == n:
-                print(s, k, i, 'return ', 0)
                 return 0
             if k == 0 or i == n:
-                print(s, k, i, 'return ', 'inf')
                 return math.inf
+
+
+# k==0 and not i!=n that means you alloted k mailboxes but not to all houses
+# or case 2:
+# k!=0&& i==n that mean you grouped all houses but you used less than k mailboxes.
+
             ans = math.inf
             for j in range(i, n):
                 cost = costs[i][j]  # Try to put a mailbox among house[i:j]
-                # print(s, 'go', i, j, ',', 'cost', cost)
-                print(s, 'calc i=', i, 'j=', j, 'n=', n, cost, '+', 'dp(', k - 1, ',', j + 1, ')')
-                ans = min(ans, cost + dp(k - 1, j + 1, s + '>>>>'))
-            print(s, k, i, 'return ', ans)
+                ans = min(ans, cost + dp(k - 1, j + 1))
             return ans
 
-        return dp(k, 0, '>>>>')
+        return dp(k, 0)
 
 
 class Solution2:
@@ -57,7 +58,7 @@ class Solution2:
 
         dp = [[math.inf] * k for _ in range(n)]
         for i in range(n):
-            dp[i][0] = costs[0][i]
+            dp[i][0] = costs[0][i]  # 只有一个邮筒的时候的时候
 
         for k_it in range(1, k):
             for i_1 in range(n):

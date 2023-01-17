@@ -3,12 +3,14 @@ from typing import Optional
 
 
 class ListNode:
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 
 class Solution:
+
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         carry = 0
         root = ListNode()
@@ -23,5 +25,5 @@ class Solution:
 
             d.next = ListNode(carry % 10)
             d = d.next
-            carry = carry // 10
+            carry //= 10
         return root.next

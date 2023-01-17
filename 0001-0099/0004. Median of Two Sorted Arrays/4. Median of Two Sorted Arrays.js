@@ -17,10 +17,6 @@ const findMedianSortedArrays = function (A, B) {
   if (m > n) {
     [A, B, m, n] = [B, A, n, m];
   }
-  // 确定 m<=n
-  if (n === 0) {
-    throw new Error("A B length can not be zero");
-  }
   // 因为A是有序的 执行在A里面的二分查找
   // 确定合并之后的数组 左边一半的长度 halfLen
   // iMin iMax 同样代表切割方式而不是索引

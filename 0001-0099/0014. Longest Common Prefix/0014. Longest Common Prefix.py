@@ -2,16 +2,16 @@ from typing import List
 
 
 class Solution:
+
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        common = str[0]
-        common_len = len(str[0])
-        for i in range(1, len(strs)):
-            common_len = min(common_len, len(strs[i]))
-            for j in range(common_len):
-                if str[i][j] != common[j]:
-                    common_len = j
-                    break
-        return common[:common_len]
+        if not strs:
+            return ""
+        list_n, str0_n = len(strs), len(strs[0])
+        for i in range(str0_n):
+            chr = strs[0][i]
+            if any(i == len(strs[j]) or strs[j][i] != chr for j in range(1, list_n)):
+                return strs[0][:i]
+        return strs[0]
 
 
 so = Solution()

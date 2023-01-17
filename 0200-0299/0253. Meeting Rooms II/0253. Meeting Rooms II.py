@@ -3,6 +3,7 @@ import heapq
 
 
 class Solution:
+
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         heapq.heapify(intervals)
         max_rooms = 0
@@ -21,6 +22,18 @@ class Solution:
         return max_rooms
 
 
-so = Solution()
-so.minMeetingRooms([[13, 15], [1, 13]])
+class Solution:
 
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        events = [x for start, end in intervals for x in ((start, 1), (end, -1))]
+        events.sort()
+        ans = cur = 0
+        for _, e in events:
+            cur += e
+            ans = max(ans, cur)
+        return ans
+
+
+so = Solution()
+# print(so.minMeetingRooms([[13, 15], [1, 13]]))
+print(so.minMeetingRooms([[0, 30], [5, 10], [15, 20]]))

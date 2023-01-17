@@ -5,6 +5,7 @@ from typing import List
 # 路径优化 并查集
 # https://zh.wikipedia.org/wiki/%E5%B9%B6%E6%9F%A5%E9%9B%86
 class DisjointSet:
+
     def __init__(self, n):
         self.disjoint_set = [i for i in range(n)]
         self.size = [1 for i in range(n)]
@@ -42,6 +43,7 @@ class DisjointSet:
 
 
 class Solution:
+
     def get_root(self, disjoint_set, x):
         stack = []
         while disjoint_set[x][0] != x:
@@ -74,7 +76,7 @@ class Solution:
                 edges.append((self.manhattan(points[i], points[j]), i, j))
         disjoint_set = [[i, 1] for i in range(n)]  # 第一个为顶点 第二个为size 用size来标记树深度 大的树的根作为根节点
         edges.sort()
-        total_distance, used = 0, 1
+        total_dis, used = 0, 1
         for dis, v1, v2 in edges:
             a = self.get_root(disjoint_set, v1)
             b = self.get_root(disjoint_set, v2)
@@ -85,11 +87,11 @@ class Solution:
                     large, small = a, b
                 disjoint_set[small][0] = large
                 disjoint_set[large][1] = disjoint_set[large][1] + disjoint_set[small][1]
-                total_distance += dis
+                total_dis += dis
                 used += 1
                 if used == n:
                     break
-        return total_distance
+        return total_dis
 
     def minCostConnectPoints2(self, points: List[List[int]]) -> int:
         total_distance, length = 0, len(points)
@@ -108,6 +110,7 @@ class Solution:
 
 
 class SolutionEasy:
+
     def manhattan(self, p1, p2):
         return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
 
