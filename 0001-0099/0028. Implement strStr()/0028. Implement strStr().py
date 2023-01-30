@@ -12,7 +12,9 @@ class Solution:
                 j += 1  # next_arr的含义是  如果在j的位置发生不匹配我应该拿哪个位置的数放到当前位置去作比较
                 next_arr[j] = k
             else:
-                # 只要发生不匹配k就重置为-1  从头开始
+                # 只要发生不匹配k就fallback到上次能匹配成功的内容
+                # k <= j 在k处发生不匹配 由于next_arr就是记录在k处不匹配应该将
+                # 字符串哪个位置的数字放到当前位置去比较的数组 所以执行下面的操作即可
                 k = next_arr[k]
         return next_arr
 
@@ -28,14 +30,14 @@ class Solution:
                 j += 1
             else:
                 j = next_log[j]
-        if j > n-1:
+        if j > n - 1:
             return i - n
         else:
             return -1
 
 
 so = Solution()
-print(so.strStr("ABC ABCDAB ABCDABCDABDE", "ABCDABDFABCDABDE"))
+print(so.strStr("ABC ABCDAB ABCDABCABCDAABCDABCABDABCDABCABADABDE", "ABCDAABCDABCABDABCDABCABA"))
 # print(so.strStr("hellhillo", "llo"))
 # 1. ABCDABD
 # 2. 0123456 索引值 j
