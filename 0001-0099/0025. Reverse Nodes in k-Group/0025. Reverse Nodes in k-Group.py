@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
 
     def __init__(self, val=0, next=None):
@@ -11,52 +14,27 @@ class ListNode:
 
 class Solution:
 
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = prev = ListNode()
-        dummy.next = l = r = head
-        while True:
-            count = 0
-            while r and count < k:
-                count += 1
-                r = r.next  # 最后r停留在下一个group的一个节点上
-            if count == k:
-                start, cur = r, l
-                # 反转链表  start代表已经生成的链表的头元素  默认的头元素就是刚刚的r节点
-                # 因为反转后当前group的第一个节点要和下个group的第一个节点连接
-                for _ in range(k):
-                    # 可以理解为先对右边取值,然后再对左边进行赋值
-                    # cur.next, cur, pre = pre, cur.next, cur
-                    temp = cur.next
-                    cur.next = start
-                    start = cur
-                    cur = temp
-                prev.next = start  # 将已经生成的链表挂载到 之前的元素上
-                prev = l  # 由于l经过反转后已经是一个group的最后一个元素 所以将prev置为l
-                l = r  # l置为下个group的开始点
-
-            else:
-                return dummy.next
-
-
-class Solution:
+    def reverse(self, head, tail):
+        pre = None
+        cur = head
+        while pre != tail:
+            next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = next
+        return tail, head
 
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = prev = ListNode()
-        dummy.next = cur_group_l = next_group_l = head
-        while True:
-            count = 0
-            while next_group_l and count < k:
-                count += 1
-                next_group_l = next_group_l.next
-            if count == k:
-                cur_list_head, rest_list_head = cur_group_l, next_group_l
-                for _ in range(k):
-                    temp = cur_list_head.next
-                    cur_list_head.next = rest_list_head
-                    rest_list_head = cur_list_head
-                    cur_list_head = temp
-                prev.next = rest_list_head
-                prev = cur_group_l
-                cur_group_l = next_group_l
-            else:
-                return dummy.next
+        dummy = pre = tail = ListNode(0, head)
+        while head:
+            for _ in range(k):
+                tail = tail.next
+                if not tail:
+                    return dummy.next
+            nex = tail.next
+            head, tail = self.reverse(head, tail)
+            pre.next = head
+            tail.next = nex
+            pre = tail
+            head = nex
+        return dummy.next

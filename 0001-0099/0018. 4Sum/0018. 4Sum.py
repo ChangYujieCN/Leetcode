@@ -2,36 +2,40 @@ from typing import List
 
 
 class Solution:
-    def find_n_sum(self, left: int, right: int, nums: List[int], target: int, n: int, temp_list: List[int],
-                   results: List[List[int]]):
-        if right - left + 1 < n or n < 2 or nums[left] * n > target or nums[right] * n < target:
-            return
-        if n == 2:
-            while left < right:
-                total = nums[left] + nums[right]
-                if total == target:
-                    results.append(temp_list + [nums[left], nums[right]])
-                    while left < right and nums[left] == nums[left + 1]: left += 1
-                    while left < right and nums[right] == nums[right - 1]: right -= 1
-                    left += 1
-                    right -= 1
-                elif target > total:
-                    left += 1
-                else:
-                    right -= 1
-        else:
-            for i in range(left, right + 1):
-                if i == left or (i > left and nums[i] != nums[i - 1]):
-                    self.find_n_sum(i + 1, right, nums, target - nums[i], n - 1, temp_list + [nums[i]], results)
 
-    def n_sum(self, nums: List[int], target: int, n: int) -> List[List[int]]:
-        nums.sort()
-        results = []
-        self.find_n_sum(0, len(nums) - 1, nums, target, n, [], results)
-        return results
+    def find(self, nums, target, res, tmp_arr, N, l, r):
+        if r - l + 1 < N or N < 2:
+            return
+        if N == 2:
+            while l < r:
+                total = sum(tmp_arr) + nums[l] + nums[r]
+                if total == target:
+                    res.append(tmp_arr + [nums[l], nums[r]])
+                    while l < r and nums[r] == nums[r - 1]:
+                        r -= 1
+                    r -= 1
+                    while l < r and nums[l] == nums[l + 1]:
+                        l += 1
+                    l += 1
+                elif total > target:
+                    while l < r and nums[r] == nums[r - 1]:
+                        r -= 1
+                    r -= 1
+                else:
+                    while l < r and nums[l] == nums[l + 1]:
+                        l += 1
+                    l += 1
+
+        else:
+            for i in range(l, r + 1):
+                if i == l or (i > l and nums[i] != nums[i - 1]):
+                    self.find(nums, target, res, tmp_arr + [nums[i]], N - 1, i + 1, r)
 
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        return self.n_sum(nums, target, 4)
+        res = []
+        nums.sort()
+        self.find(nums, target, res, [], 4, 0, len(nums) - 1)
+        return res
 
 
 so = Solution()

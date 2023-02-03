@@ -7,17 +7,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        nums_len = len(nums)
-        target_idx = nums_len - 2
-        while target_idx >= 0:
-            if nums[target_idx] < nums[target_idx + 1]:
-                break
-            target_idx -= 1
-        if target_idx < 0:
+        l = len(nums)
+        o = l - 2
+        while o >= 0 and nums[o] >= nums[o + 1]:
+            o -= 1
+        if o < 0:
             nums.reverse()
         else:
-            for i in range(nums_len - 1, target_idx, -1):
-                if nums[i] > nums[target_idx]:
-                    nums[target_idx], nums[i] = nums[i], nums[target_idx]
+            for i in range(l - 1, o, -1):
+                if nums[i] > nums[o]:
+                    nums[o], nums[i] = nums[i], nums[o]
                     break
-            nums[target_idx + 1:] = nums[target_idx + 1:][::-1]
+            nums[o + 1:] = nums[o + 1:][::-1]
