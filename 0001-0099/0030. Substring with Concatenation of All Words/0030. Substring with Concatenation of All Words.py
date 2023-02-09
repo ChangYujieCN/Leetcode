@@ -36,7 +36,7 @@ class Solution:
         return answer
 
 
-class Solution2:
+class Solution:
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         n = len(s)
@@ -98,4 +98,4 @@ class Solution2:
 
 
 so = Solution2()
-so.findSubstring("wordgoodgoodgoodbestword",["word","good","best","word"])
+so.findSubstring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"])

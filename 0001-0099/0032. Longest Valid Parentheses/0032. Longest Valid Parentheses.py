@@ -52,8 +52,8 @@ class Solution:
             if s[i] == ')':
                 if s[i - 1] == '(':
                     dp[i] = dp[i - 2] + 2
-                elif (i - dp[i - 1] > 0) and s[i - dp[i - 1] -
-                                               1] == '(':  # 不加前面的>0限制条件很可能后面的判断语句为s[-x],判断跑到字符的末尾而导致判断成功
+                # 不加前面的>0限制条件很可能后面的判断语句为s[-x],判断跑到字符的末尾而导致判断成功
+                elif (i - dp[i - 1] > 0) and s[i - dp[i - 1] - 1] == '(':
                     dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2
                 l = max(l, dp[i])
         return l

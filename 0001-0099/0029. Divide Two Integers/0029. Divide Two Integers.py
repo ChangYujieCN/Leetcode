@@ -38,7 +38,7 @@ class Solution:
         # Go from largest double to smallest, checking if the current double fits.
         # into the remainder of the dividend.
         quotient = 0
-        for i in reversed(range(len(doubles))):
+        for i in range(len(doubles),-1,-1):
             if doubles[i] >= dividend:
                 # If it does fit, add the current powerOfTwo to the quotient.
                 quotient += powersOfTwo[i]
